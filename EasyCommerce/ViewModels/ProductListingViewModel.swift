@@ -11,20 +11,34 @@ class ProductListingViewModel: ObservableObject {
     let networkManager: NetworkService
     
     @Published var products: [Product] = []
+    @Published var categories: [Category] = []
     
     init(networkManager: NetworkService) {
         self.networkManager = networkManager
     }
     
+    func fetchCategories () async {
+        do {
+             let categoriesList = try await networkManager.fetchCategories()
+            DispatchQueue.main.async {
+                self.categories = categoriesList
+            }
+        } catch(let error) {
+                // log to crashlytics
+            print("ERROR: \(error.localizedDescription)")
+        }
+    }
+    
     func fetchProducts () async {
         do {
-            products = try await networkManager.fetchProducts()
+            let products = try await networkManager.fetchProducts()
             DispatchQueue.main.async { [self] in
                 self.products = products
             }
         } catch(let error) {
                 // log to crashlytics
             print("ERROR: \(error.localizedDescription)")
+
         }
     }
     

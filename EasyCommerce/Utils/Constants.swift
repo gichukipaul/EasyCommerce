@@ -11,5 +11,6 @@ struct Constants {
     struct Urls {
         static let BASE_URL = "https://fakestoreapi.com"
         static let PRODUCTS_URL = BASE_URL + "/products"
+        static let CATEGORY_URL =  PRODUCTS_URL + "/categories"
     }
 }
