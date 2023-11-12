@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE608A342B010F5D00E1397B /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE608A332B010F5D00E1397B /* Product.swift */; };
+		CE608A362B0112F600E1397B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE608A352B0112F600E1397B /* Rating.swift */; };
+		CE608A382B01140400E1397B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE608A372B01140400E1397B /* Category.swift */; };
 		CE86842F2B0100DE00EBFC83 /* EasyCommerceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86842E2B0100DE00EBFC83 /* EasyCommerceApp.swift */; };
 		CE8684312B0100DE00EBFC83 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8684302B0100DE00EBFC83 /* ContentView.swift */; };
 		CE8684332B0100E300EBFC83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE8684322B0100E300EBFC83 /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE608A332B010F5D00E1397B /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		CE608A352B0112F600E1397B /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		CE608A372B01140400E1397B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CE86842B2B0100DE00EBFC83 /* EasyCommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyCommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86842E2B0100DE00EBFC83 /* EasyCommerceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyCommerceApp.swift; sourceTree = "<group>"; };
 		CE8684302B0100DE00EBFC83 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +77,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE608A2E2B0109C300E1397B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE608A332B010F5D00E1397B /* Product.swift */,
+				CE608A352B0112F600E1397B /* Rating.swift */,
+				CE608A372B01140400E1397B /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE608A2F2B0109D100E1397B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE608A302B0109E200E1397B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE8684302B0100DE00EBFC83 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE608A312B0109F300E1397B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CE608A322B010AC600E1397B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		CE608A392B01150200E1397B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CE86842E2B0100DE00EBFC83 /* EasyCommerceApp.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		CE8684222B0100DE00EBFC83 = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +147,12 @@
 		CE86842D2B0100DE00EBFC83 /* EasyCommerce */ = {
 			isa = PBXGroup;
 			children = (
-				CE86842E2B0100DE00EBFC83 /* EasyCommerceApp.swift */,
-				CE8684302B0100DE00EBFC83 /* ContentView.swift */,
+				CE608A392B01150200E1397B /* Core */,
+				CE608A322B010AC600E1397B /* Managers */,
+				CE608A312B0109F300E1397B /* Utils */,
+				CE608A302B0109E200E1397B /* Views */,
+				CE608A2F2B0109D100E1397B /* ViewModels */,
+				CE608A2E2B0109C300E1397B /* Models */,
 				CE8684322B0100E300EBFC83 /* Assets.xcassets */,
 				CE8684342B0100E300EBFC83 /* Preview Content */,
 			);
@@ -257,8 +314,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE608A362B0112F600E1397B /* Rating.swift in Sources */,
+				CE608A382B01140400E1397B /* Category.swift in Sources */,
 				CE8684312B0100DE00EBFC83 /* ContentView.swift in Sources */,
 				CE86842F2B0100DE00EBFC83 /* EasyCommerceApp.swift in Sources */,
+				CE608A342B010F5D00E1397B /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +484,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,6 +513,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
