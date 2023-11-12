@@ -2,15 +2,18 @@
 //  ContentView.swift
 //  EasyCommerce
 //
-//  Created by user on 12/11/2023.
+//  Created by Gichuki on 12/11/2023.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, menu")
-            .padding()
+        NavigationView {
+            ProductsListing()
+                .padding()
+                .navigationTitle("Products")
+        }
     }
 }
 

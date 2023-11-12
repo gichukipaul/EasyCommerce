@@ -2,12 +2,12 @@
 //  Rating.swift
 //  EasyCommerce
 //
-//  Created by user on 12/11/2023.
+//  Created by Gichuki on 12/11/2023.
 //
 
 import Foundation
 
-struct Rating: Identifiable {
+struct Rating: Identifiable, Codable, Hashable {
     let id = UUID().uuidString
     let rate: Double
     let count: Int

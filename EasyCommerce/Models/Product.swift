@@ -2,7 +2,7 @@
 //  Product.swift
 //  EasyCommerce
 //
-//  Created by user on 12/11/2023.
+//  Created by Gichuki on 12/11/2023.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ import Foundation
 //    }
 //},
 
-struct Product: Identifiable{
+struct Product: Identifiable, Codable, Hashable{
     let id: Int
     let title: String
     let price: Double
@@ -27,4 +27,8 @@ struct Product: Identifiable{
     let category: String
     let image: String
     let rating: Rating
+    
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 }
