@@ -22,25 +22,18 @@ struct ProductsListing: View {
             }
             .pickerStyle(.segmented)
             .onChange(of: selected ) { new in
-                    // TODO: SHOW PRODUCTS BASED ON SELECTION
-                print(selected)
+                Task {
+                    await vm.fetchProductsFor(category: Category(name: new))
+                }
             }
-            
-            
             
             List (vm.products, id: \.self) { product in
                 ProductItemView(product: product)
             }
             .listStyle(.plain)
-            .onAppear {
-                Task {
-                    do {
-                        try await vm.fetchCategories()
-                        try await vm.fetchProducts()
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }
+            .task {
+                await vm.fetchCategories()
+                await vm.fetchProducts()
             }
         }
     }

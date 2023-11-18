@@ -10,9 +10,11 @@ import Foundation
 protocol NetworkService {
     func fetchProducts() async throws -> [Product]
     func fetchCategories() async throws -> [Category]
+    func fetchProductsByCategory(category: String) async throws -> [Product]
 }
 
 class NetworkManager: NetworkService {
+    
     static let shared = NetworkManager()
     private init() { }
     
@@ -20,7 +22,7 @@ class NetworkManager: NetworkService {
         let url = Constants.Urls.CATEGORY_URL
         
         guard let url = URL(string: url) else {
-        print(" INVALID URL")
+            print(" INVALID URL")
             return []
         }
         let (data, _) = try await URLSession.shared.data(from: url)
@@ -42,5 +44,32 @@ class NetworkManager: NetworkService {
         let products = try JSONDecoder().decode([Product].self, from: data)
         
         return products
+    }
+    
+    func fetchProductsByCategory(category: String) async throws -> [Product] {
+        let url =  Constants.Urls.PRODUCTS_URL
+        var finalUrl: String {
+            switch category {
+                case "electronics":
+                    return url + "/category/electronics"
+                case "jewelery":
+                    return url + "/category/jewelery"
+                case "men's clothing":
+                    return url + "/category/" + category.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+                case "women's clothing":
+                    return url + "/category/" + category.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+                default:
+                    return url
+            }
+        }
+        
+        guard let url = URL(string: finalUrl) else {
+            print("ERROR: invalid url")
+            return []
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        return try JSONDecoder().decode([Product].self, from: data)
     }
 }

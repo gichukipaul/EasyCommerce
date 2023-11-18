@@ -12,6 +12,7 @@ class ProductListingViewModel: ObservableObject {
     
     @Published var products: [Product] = []
     @Published var categories: [Category] = []
+    @Published var error: Error?
     
     init(networkManager: NetworkService) {
         self.networkManager = networkManager
@@ -19,18 +20,21 @@ class ProductListingViewModel: ObservableObject {
     
     func fetchCategories () async {
         do {
-             let categoriesList = try await networkManager.fetchCategories()
+            self.error = nil
+            let categoriesList = try await networkManager.fetchCategories()
             DispatchQueue.main.async {
                 self.categories = categoriesList
             }
         } catch(let error) {
-                // log to crashlytics
+                // log to crashlytics and update the error variable
             print("ERROR: \(error.localizedDescription)")
+            self.error = error
         }
     }
     
-    func fetchProducts () async {
+    func fetchProducts () async{
         do {
+            self.error = nil
             let products = try await networkManager.fetchProducts()
             DispatchQueue.main.async { [self] in
                 self.products = products
@@ -38,10 +42,24 @@ class ProductListingViewModel: ObservableObject {
         } catch(let error) {
                 // log to crashlytics
             print("ERROR: \(error.localizedDescription)")
-
+            self.error = error
         }
     }
     
+    func fetchProductsFor(category: Category) async {
+        do {
+            self.error = nil
+            
+            let products = try await networkManager.fetchProductsByCategory(category: category.name)
+            DispatchQueue.main.async {
+                self.products = products
+            }
+        } catch(let error) {
+                // log to crashlytics
+            print("ERROR: \(error.localizedDescription)")
+            self.error = error
+        }
+    }
 }
 
 extension ProductListingViewModel {
