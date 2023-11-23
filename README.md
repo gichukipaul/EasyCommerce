@@ -1,7 +1,4 @@
 # EasyCommerce
-
-EasyCommerce is a modern e-commerce application built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
-
 ## UI Overview
 <div style="display:flex; justify-content:center;">
 <img src="https://github.com/gichukipaul/EasyCommerce/blob/main/main.png" alt="Dark Mode Screenshot 1" width="220" style="margin-right: 20px;"/>
@@ -10,7 +7,9 @@ EasyCommerce is a modern e-commerce application built using SwiftUI, offering a 
 
 <img src="https://github.com/gichukipaul/EasyCommerce/blob/main/spinnerview.png" alt="Dark Mode Screenshot 3" width="220" />
 </div>
-<be>
+<br>
+
+EasyCommerce is a modern e-commerce application built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
 
 ## Technologies Used
 - MVVM Architecture: The app leverages the Model-View-ViewModel (MVVM) design pattern to maintain a clear and modular structure.
