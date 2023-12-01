@@ -7,13 +7,18 @@
 
 import Foundation
 
+enum EasyCommerceError : Error {
+    case INVALID_URL
+}
+
 protocol NetworkService {
     func fetchProducts() async throws -> [Product]
     func fetchCategories() async throws -> [Category]
     func fetchProductsByCategory(category: String) async throws -> [Product]
+    func fetchUserCart() async throws -> CartResponse
 }
 
-class NetworkManager: NetworkService {
+final class NetworkManager: NetworkService {
     
     static let shared = NetworkManager()
     private init() { }
@@ -71,5 +76,16 @@ class NetworkManager: NetworkService {
         let (data, _) = try await URLSession.shared.data(from: url)
         
         return try JSONDecoder().decode([Product].self, from: data)
+    }
+    
+    func fetchUserCart() async throws -> CartResponse {
+        guard let url = URL(string: Constants.Urls.CART_URL) else {
+            print("Eror: NO VALI URL")
+            throw EasyCommerceError.INVALID_URL
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        return try JSONDecoder().decode(CartResponse.self, from: data)
     }
 }
