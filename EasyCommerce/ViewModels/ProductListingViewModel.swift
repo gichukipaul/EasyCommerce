@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProductListingViewModel: ObservableObject {
+final class ProductListingViewModel: ObservableObject {
     let networkManager: NetworkService
     
     @Published var products: [Product] = []
