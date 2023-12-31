@@ -1,4 +1,4 @@
-# EasyCommerce
+# Easy Commerce
 ## UI Overview
 <div style="display:flex; justify-content:center;">
 <img src="https://github.com/gichukipaul/EasyCommerce/blob/main/main.png" alt="Dark Mode Screenshot 1" width="220" style="margin-right: 20px;"/>
@@ -9,11 +9,11 @@
 </div>
 <br>
 
-EasyCommerce is a modern e-commerce application built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
+Easy Commerce is a modern e-commerce application built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
 
 ## Technologies Used
 - MVVM Architecture: The app leverages the Model-View-ViewModel (MVVM) design pattern to maintain a clear and modular structure.
-- Networking with Async-Await: EasyCommerce adeptly interacts with remote servers, employing the latest networking capabilities. Networking using Async-Await: The app communicates with a remote server to fetch data.
+- Multi-Threading and Networking with Async-Await: EasyCommerce adeptly interacts with remote servers, employing the latest networking capabilities. The app communicates with a remote server to fetch data.
 - SwiftUI: The modern and responsive user interface is crafted using SwiftUI, ensuring an engaging and interactive user experience.
 - Swift: Swift is the programming language used for building the EasyCommerce app.
 - Smooth Navigation: SwiftUI's NavigationView facilitates effortless navigation across different screens.
@@ -25,6 +25,7 @@ EasyCommerce is a modern e-commerce application built using SwiftUI, offering a 
 - Authentication: Registering, Log in with email and password and Google Sign In
 - Pagination: Coming soon to enhance the browsing experience.
 - Endless scrolling: Stay tuned for seamless browsing that never stops.
+- Caching using SwiftData.
 
 ## Getting Started
 Ready to embark on a culinary adventure with EasyCommerce? Just follow these simple steps:
