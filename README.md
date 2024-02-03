@@ -9,13 +9,14 @@
 </div>
 <br>
 
-Easy Commerce is a modern e-commerce application built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
+Easy Commerce is a modern e-commerce iOS app built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
 
 ## Technologies Used
 - MVVM Architecture: The app leverages the Model-View-ViewModel (MVVM) design pattern to maintain a clear and modular structure.
 - Multi-Threading and Networking with Async-Await: EasyCommerce adeptly interacts with remote servers, employing the latest networking capabilities. The app communicates with a remote server to fetch data.
 - SwiftUI: The modern and responsive user interface is crafted using SwiftUI, ensuring an engaging and interactive user experience.
 - Swift: Swift is the programming language used for building the EasyCommerce app.
+- SOLID principles.
 - Smooth Navigation: SwiftUI's NavigationView facilitates effortless navigation across different screens.
 - Data Models: Custom data models are used to structure and represent recipe information.
 
