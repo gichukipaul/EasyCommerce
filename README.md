@@ -1,5 +1,4 @@
 # Easy Commerce
-## UI Overview
 <div style="display:flex; justify-content:center;">
 <img src="https://github.com/gichukipaul/EasyCommerce/blob/main/main.png" alt="Dark Mode Screenshot 1" width="220" style="margin-right: 20px;"/>
 
@@ -19,11 +18,9 @@ Easy Commerce is a modern e-commerce iOS app built using SwiftUI, offering a sea
 - SOLID principles.
 - Smooth Navigation: SwiftUI's NavigationView facilitates effortless navigation across different screens.
 - Data Models: Custom data models are used to structure and represent recipe information.
-
-## Features
-
+- 
 ## Upcoming Features
-- Authentication: Registering, Log in with email and password and Google Sign In
+- Authentication: Registering, Log in with email and password and Google Sign-In
 - Pagination: Coming soon to enhance the browsing experience.
 - Endless scrolling: Stay tuned for seamless browsing that never stops.
 - Caching using SwiftData.
