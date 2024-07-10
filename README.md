@@ -27,7 +27,6 @@ Easy Commerce is a modern e-commerce iOS app built using SwiftUI, offering a sea
 
 ## Getting Started
 Ready to embark on a culinary adventure with EasyCommerce? Just follow these simple steps:
-
 1. Clone the repository to your local machine.
 2. Fire up Xcode and open the project.
 3. Hit that build and run button to explore YARA on your iOS simulator or physical device.
