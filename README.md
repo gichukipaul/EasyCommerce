@@ -8,7 +8,7 @@
 
 </div>
 
-Easy Commerce is a modern e-commerce iOS app built using SwiftUI, offering a seamless shopping experience for users. The app leverages the  [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
+Easy Commerce is a modern e-commerce iOS app built using SwiftUI, offering a seamless shopping experience for users. The app leverages the [FakeStore API](https://fakestoreapi.com/) as its backend to provide a diverse range of products across different categories.
 
 ## Technologies Used
 - MVVM Architecture: The app leverages the Model-View-ViewModel (MVVM) design pattern to maintain a clear and modular structure.
@@ -30,7 +30,7 @@ Ready to embark on a culinary adventure with EasyCommerce? Just follow these sim
 2. Fire up Xcode and open the project.
 3. Hit that build and run button to explore YARA on your iOS simulator or physical device.
 
-## You Want To Contribute?
+## Do you Want To Contribute?
 At EasyCommerce, we're excited about contributions from the community that can make the app even more amazing. If you have suggestions or would like to roll up your sleeves and contribute, please don't hesitate to open an issue or submit a pull request.
 ## License
 This project is licensed under the [MIT License](LICENSE).
