@@ -12,7 +12,7 @@ struct CartView: View {
     @State private var showCheckout: Bool = false
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             Group {
                 if cartManager.isEmpty {
                     emptyCartView

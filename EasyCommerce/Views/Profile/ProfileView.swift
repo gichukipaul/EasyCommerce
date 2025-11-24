@@ -19,7 +19,7 @@ struct ProfileView: View {
     @ObservedObject private var currencyFormatter = CurrencyFormatter.shared
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 // User Section
                 userSection
