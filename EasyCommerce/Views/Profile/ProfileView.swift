@@ -356,13 +356,13 @@ struct RecentlyViewedView: View {
         .navigationTitle("Recently Viewed")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            if !recentlyViewedManager.items.isEmpty {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Clear") {
-                        recentlyViewedManager.clear()
-                    }
-                    .foregroundColor(AppTheme.Colors.primaryFallback)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Clear") {
+                    recentlyViewedManager.clear()
                 }
+                .foregroundColor(AppTheme.Colors.primaryFallback)
+                .opacity(recentlyViewedManager.items.isEmpty ? 0 : 1)
+                .disabled(recentlyViewedManager.items.isEmpty)
             }
         }
     }
