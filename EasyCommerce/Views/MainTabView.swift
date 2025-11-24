@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @StateObject private var cartManager = CartManager.shared
+    @EnvironmentObject var cartManager: CartManager
+    @EnvironmentObject var wishlistManager: WishlistManager
     @State private var selectedTab: Tab = .home
 
     enum Tab: String, CaseIterable {
         case home
-        case categories
+        case search
         case cart
+        case wishlist
         case profile
 
         var title: String {
             switch self {
             case .home: return LocalizedString.home
-            case .categories: return LocalizedString.categories
+            case .search: return LocalizedString.search
             case .cart: return LocalizedString.cart
+            case .wishlist: return "Wishlist"
             case .profile: return LocalizedString.profile
             }
         }
@@ -29,8 +32,9 @@ struct MainTabView: View {
         var icon: String {
             switch self {
             case .home: return "house"
-            case .categories: return "square.grid.2x2"
+            case .search: return "magnifyingglass"
             case .cart: return "cart"
+            case .wishlist: return "heart"
             case .profile: return "person"
             }
         }
@@ -38,8 +42,9 @@ struct MainTabView: View {
         var selectedIcon: String {
             switch self {
             case .home: return "house.fill"
-            case .categories: return "square.grid.2x2.fill"
+            case .search: return "magnifyingglass"
             case .cart: return "cart.fill"
+            case .wishlist: return "heart.fill"
             case .profile: return "person.fill"
             }
         }
@@ -48,26 +53,30 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView()
-                .environmentObject(cartManager)
                 .tabItem {
                     Label(Tab.home.title, systemImage: selectedTab == .home ? Tab.home.selectedIcon : Tab.home.icon)
                 }
                 .tag(Tab.home)
 
-            CategoriesView()
-                .environmentObject(cartManager)
+            AdvancedSearchView()
                 .tabItem {
-                    Label(Tab.categories.title, systemImage: selectedTab == .categories ? Tab.categories.selectedIcon : Tab.categories.icon)
+                    Label(Tab.search.title, systemImage: selectedTab == .search ? Tab.search.selectedIcon : Tab.search.icon)
                 }
-                .tag(Tab.categories)
+                .tag(Tab.search)
 
             CartView()
-                .environmentObject(cartManager)
                 .tabItem {
                     Label(Tab.cart.title, systemImage: selectedTab == .cart ? Tab.cart.selectedIcon : Tab.cart.icon)
                 }
                 .tag(Tab.cart)
                 .badge(cartManager.itemCount > 0 ? cartManager.itemCount : 0)
+
+            WishlistView()
+                .tabItem {
+                    Label(Tab.wishlist.title, systemImage: selectedTab == .wishlist ? Tab.wishlist.selectedIcon : Tab.wishlist.icon)
+                }
+                .tag(Tab.wishlist)
+                .badge(wishlistManager.count > 0 ? wishlistManager.count : 0)
 
             ProfileView()
                 .tabItem {
@@ -79,82 +88,15 @@ struct MainTabView: View {
     }
 }
 
-// MARK: - Custom Tab Bar (Alternative)
-
-struct CustomTabBar: View {
-    @Binding var selectedTab: MainTabView.Tab
-    let cartCount: Int
-
-    var body: some View {
-        HStack {
-            ForEach(MainTabView.Tab.allCases, id: \.self) { tab in
-                Spacer()
-
-                TabBarButton(
-                    tab: tab,
-                    isSelected: selectedTab == tab,
-                    cartCount: tab == .cart ? cartCount : 0
-                ) {
-                    withAnimation(AppTheme.Animation.quick) {
-                        selectedTab = tab
-                    }
-                }
-
-                Spacer()
-            }
-        }
-        .padding(.vertical, AppTheme.Spacing.sm)
-        .padding(.bottom, AppTheme.Spacing.sm)
-        .background(
-            AppTheme.Colors.cardBackground
-                .shadow(
-                    color: AppTheme.Shadow.large.color,
-                    radius: AppTheme.Shadow.large.radius,
-                    x: 0,
-                    y: -4
-                )
-        )
-    }
-}
-
-struct TabBarButton: View {
-    let tab: MainTabView.Tab
-    let isSelected: Bool
-    let cartCount: Int
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: AppTheme.Spacing.xxs) {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: isSelected ? tab.selectedIcon : tab.icon)
-                        .font(.system(size: 22))
-                        .foregroundColor(isSelected ? AppTheme.Colors.primaryFallback : AppTheme.Colors.secondaryText)
-
-                    if cartCount > 0 {
-                        Text(cartCount > 99 ? "99+" : "\(cartCount)")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
-                            .background(AppTheme.Colors.cartBadge)
-                            .clipShape(Capsule())
-                            .offset(x: 12, y: -8)
-                    }
-                }
-
-                Text(tab.title)
-                    .font(AppTheme.Typography.caption2)
-                    .foregroundColor(isSelected ? AppTheme.Colors.primaryFallback : AppTheme.Colors.secondaryText)
-            }
-        }
-    }
-}
-
 // MARK: - Preview
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
+            .environmentObject(CartManager.shared)
+            .environmentObject(WishlistManager.shared)
+            .environmentObject(RecentlyViewedManager.shared)
+            .environmentObject(OrderManager.shared)
+            .environmentObject(UserManager.shared)
     }
 }

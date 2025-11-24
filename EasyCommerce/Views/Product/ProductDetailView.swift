@@ -10,67 +10,24 @@ import SwiftUI
 struct ProductDetailView: View {
     let product: Product
     @EnvironmentObject var cartManager: CartManager
+    @EnvironmentObject var wishlistManager: WishlistManager
+    @EnvironmentObject var recentlyViewedManager: RecentlyViewedManager
     @Environment(\.dismiss) private var dismiss
+
     @State private var quantity: Int = 1
     @State private var showAddedToCart: Bool = false
     @State private var selectedImageScale: CGFloat = 1.0
+    @State private var showShareSheet: Bool = false
+
+    var isFavorite: Bool {
+        wishlistManager.contains(product)
+    }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 // Hero Image
-                ZStack(alignment: .topTrailing) {
-                    AsyncImage(url: URL(string: product.image)) { phase in
-                        switch phase {
-                        case .empty:
-                            Rectangle()
-                                .fill(AppTheme.Colors.secondaryBackground)
-                                .overlay(ProgressView())
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .scaleEffect(selectedImageScale)
-                                .gesture(
-                                    MagnificationGesture()
-                                        .onChanged { value in
-                                            selectedImageScale = value
-                                        }
-                                        .onEnded { _ in
-                                            withAnimation {
-                                                selectedImageScale = 1.0
-                                            }
-                                        }
-                                )
-                        case .failure:
-                            Rectangle()
-                                .fill(AppTheme.Colors.secondaryBackground)
-                                .overlay(
-                                    Image(systemName: "photo")
-                                        .font(.largeTitle)
-                                        .foregroundColor(AppTheme.Colors.tertiaryText)
-                                )
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 350)
-                    .background(Color.white)
-
-                    // Favorite button
-                    Button {
-                        // Handle favorite
-                    } label: {
-                        Image(systemName: "heart")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(AppTheme.Colors.secondaryText)
-                            .padding(AppTheme.Spacing.md)
-                            .background(.ultraThinMaterial)
-                            .clipShape(Circle())
-                    }
-                    .padding(AppTheme.Spacing.lg)
-                }
+                heroImage
 
                 // Content
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
@@ -132,6 +89,16 @@ struct ProductDetailView: View {
 
                         QuantitySelector(quantity: $quantity)
                     }
+
+                    Divider()
+
+                    // Reviews Section
+                    ProductReviewsSection(product: product)
+
+                    Divider()
+
+                    // Recommendations
+                    RecommendationsSection(currentProduct: product)
                 }
                 .padding(AppTheme.Spacing.lg)
                 .background(AppTheme.Colors.background)
@@ -139,6 +106,29 @@ struct ProductDetailView: View {
         }
         .background(AppTheme.Colors.background)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack(spacing: AppTheme.Spacing.md) {
+                    // Share Button
+                    Button {
+                        showShareSheet = true
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(AppTheme.Colors.text)
+                    }
+
+                    // Favorite Button
+                    Button {
+                        withAnimation(AppTheme.Animation.spring) {
+                            wishlistManager.toggle(product)
+                        }
+                    } label: {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+                            .foregroundColor(isFavorite ? AppTheme.Colors.error : AppTheme.Colors.text)
+                    }
+                }
+            }
+        }
         .safeAreaInset(edge: .bottom) {
             bottomBar
         }
@@ -147,6 +137,57 @@ struct ProductDetailView: View {
                 AddedToCartOverlay()
                     .transition(.scale.combined(with: .opacity))
             }
+        }
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheet(items: [
+                "Check out this product: \(product.title)",
+                URL(string: "https://easycommerce.app/product/\(product.id)")!
+            ])
+        }
+        .onAppear {
+            recentlyViewedManager.addProduct(product)
+        }
+    }
+
+    private var heroImage: some View {
+        ZStack(alignment: .topTrailing) {
+            AsyncImage(url: URL(string: product.image)) { phase in
+                switch phase {
+                case .empty:
+                    Rectangle()
+                        .fill(AppTheme.Colors.secondaryBackground)
+                        .overlay(ProgressView())
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .scaleEffect(selectedImageScale)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    selectedImageScale = value
+                                }
+                                .onEnded { _ in
+                                    withAnimation {
+                                        selectedImageScale = 1.0
+                                    }
+                                }
+                        )
+                case .failure:
+                    Rectangle()
+                        .fill(AppTheme.Colors.secondaryBackground)
+                        .overlay(
+                            Image(systemName: "photo")
+                                .font(.largeTitle)
+                                .foregroundColor(AppTheme.Colors.tertiaryText)
+                        )
+                @unknown default:
+                    EmptyView()
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 350)
+            .background(Color.white)
         }
     }
 
@@ -264,6 +305,117 @@ struct AddedToCartOverlay: View {
     }
 }
 
+// MARK: - Recommendations Section
+
+struct RecommendationsSection: View {
+    let currentProduct: Product
+    @StateObject private var viewModel = ProductListingViewModel(networkManager: NetworkManager.shared)
+    @EnvironmentObject var cartManager: CartManager
+
+    var recommendedProducts: [Product] {
+        viewModel.products
+            .filter { $0.id != currentProduct.id && $0.category == currentProduct.category }
+            .prefix(6)
+            .map { $0 }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
+            Text("You Might Also Like")
+                .font(AppTheme.Typography.headline)
+                .foregroundColor(AppTheme.Colors.text)
+
+            if recommendedProducts.isEmpty {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding()
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: AppTheme.Spacing.md) {
+                        ForEach(recommendedProducts, id: \.id) { product in
+                            NavigationLink {
+                                ProductDetailView(product: product)
+                            } label: {
+                                RecommendationCard(product: product) {
+                                    cartManager.addToCart(product)
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+            }
+        }
+        .task {
+            await viewModel.fetchProducts()
+        }
+    }
+}
+
+// MARK: - Recommendation Card
+
+struct RecommendationCard: View {
+    let product: Product
+    let onAddToCart: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+            AsyncImage(url: URL(string: product.image)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                default:
+                    Rectangle()
+                        .fill(AppTheme.Colors.secondaryBackground)
+                }
+            }
+            .frame(width: 120, height: 120)
+            .background(Color.white)
+            .cornerRadius(AppTheme.CornerRadius.small)
+
+            Text(product.title)
+                .font(AppTheme.Typography.caption)
+                .foregroundColor(AppTheme.Colors.text)
+                .lineLimit(2)
+
+            HStack(spacing: 2) {
+                Image(systemName: "star.fill")
+                    .font(.system(size: 10))
+                    .foregroundColor(AppTheme.Colors.starFilled)
+                Text(String(format: "%.1f", product.rating.rate))
+                    .font(AppTheme.Typography.caption2)
+                    .foregroundColor(AppTheme.Colors.secondaryText)
+            }
+
+            PriceView(amount: product.price, size: .small)
+        }
+        .frame(width: 120)
+        .padding(AppTheme.Spacing.sm)
+        .background(AppTheme.Colors.cardBackground)
+        .cornerRadius(AppTheme.CornerRadius.medium)
+        .shadow(
+            color: AppTheme.Shadow.small.color,
+            radius: AppTheme.Shadow.small.radius,
+            x: AppTheme.Shadow.small.x,
+            y: AppTheme.Shadow.small.y
+        )
+    }
+}
+
+// MARK: - Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
 // MARK: - Preview
 
 struct ProductDetailView_Previews: PreviewProvider {
@@ -271,6 +423,8 @@ struct ProductDetailView_Previews: PreviewProvider {
         NavigationStack {
             ProductDetailView(product: ProductListingViewModel.sampleProduct)
                 .environmentObject(CartManager.shared)
+                .environmentObject(WishlistManager.shared)
+                .environmentObject(RecentlyViewedManager.shared)
         }
     }
 }
