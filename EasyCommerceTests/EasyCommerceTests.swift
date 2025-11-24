@@ -4,33 +4,94 @@
 //
 //  Created by Gichuki on 12/11/2023.
 //
+//  This is the main test entry point. Tests are organized into the following modules:
+//
+//  - Mocks/
+//    - MockNetworkService.swift - Mock implementation of NetworkService protocol
+//    - MockAuthService.swift - Mock implementation of AuthService protocol
+//
+//  - Helpers/
+//    - TestData.swift - Test fixtures and sample data
+//
+//  - ViewModelTests/
+//    - ProductListingViewModelTests.swift - Tests for ProductListingViewModel
+//    - AuthViewModelTests.swift - Tests for AuthViewModel
+//
+//  - ManagerTests/
+//    - NetworkManagerTests.swift - Tests for NetworkManager
+//    - AuthManagerTests.swift - Tests for AuthManager
+//
+//  - ModelTests/
+//    - ProductTests.swift - Tests for Product model
+//    - CartResponseTests.swift - Tests for CartResponse model
+//    - CategoryTests.swift - Tests for Category model
+//    - RatingTests.swift - Tests for Rating model
+//
 
 import XCTest
 @testable import EasyCommerce
 
-class EasyCommerceTests: XCTestCase {
+/// Main test class for EasyCommerce application
+final class EasyCommerceTests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Setup code called before each test method
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        // Teardown code called after each test method
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    // MARK: - Smoke Tests
+
+    /// Verify the app module can be imported
+    func testModuleImport() throws {
+        // This test verifies that the @testable import works correctly
+        XCTAssertTrue(true, "EasyCommerce module imported successfully")
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    /// Verify test data is accessible
+    func testTestDataAccessible() throws {
+        let product = TestData.sampleProduct
+        XCTAssertEqual(product.id, 1)
+        XCTAssertEqual(product.title, "Test Product")
     }
 
+    /// Verify mock services can be instantiated
+    func testMockServicesInstantiable() throws {
+        let mockNetworkService = MockNetworkService()
+        let mockAuthService = MockAuthService()
+
+        XCTAssertNotNil(mockNetworkService)
+        XCTAssertNotNil(mockAuthService)
+    }
+
+    // MARK: - Quick Sanity Checks
+
+    /// Verify Product model conforms to required protocols
+    func testProductProtocolConformance() {
+        let product = TestData.sampleProduct
+
+        // Identifiable
+        XCTAssertEqual(product.id, 1)
+
+        // Hashable
+        var productSet: Set<Product> = []
+        productSet.insert(product)
+        XCTAssertEqual(productSet.count, 1)
+
+        // Codable - tested in ProductTests.swift
+    }
+
+    /// Verify ViewModels accept dependency injection
+    func testDependencyInjection() {
+        let mockNetworkService = MockNetworkService()
+        let mockAuthService = MockAuthService()
+
+        let productVM = ProductListingViewModel(networkManager: mockNetworkService)
+        let authVM = AuthViewModel(authManager: mockAuthService)
+
+        XCTAssertNotNil(productVM)
+        XCTAssertNotNil(authVM)
+    }
 }
