@@ -26,7 +26,7 @@ struct OrderHistoryView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 0) {
                 // Filter Tabs
                 filterTabs

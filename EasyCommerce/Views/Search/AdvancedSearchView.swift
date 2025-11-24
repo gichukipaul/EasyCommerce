@@ -92,7 +92,7 @@ struct AdvancedSearchView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 0) {
                 // Search Header
                 searchHeader
@@ -406,7 +406,7 @@ struct FilterSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 // Price Range
                 Section("Price Range") {
