@@ -11,4 +11,9 @@ struct Rating: Identifiable, Codable, Hashable {
     let id = UUID().uuidString
     let rate: Double
     let count: Int
+
+    enum CodingKeys: String, CodingKey {
+        case rate
+        case count
+    }
 }
