@@ -152,7 +152,13 @@ struct AdvancedSearchView: View {
                         .font(.system(size: 18))
                         .foregroundColor(filters.isActive ? .white : AppTheme.Colors.text)
                         .padding(AppTheme.Spacing.md)
-                        .background(filters.isActive ? AppTheme.Colors.primaryGradient : AnyView(AppTheme.Colors.secondaryBackground))
+                        .background {
+                            if filters.isActive {
+                                AppTheme.Colors.primaryGradient
+                            } else {
+                                AppTheme.Colors.secondaryBackground
+                            }
+                        }
                         .cornerRadius(AppTheme.CornerRadius.medium)
                 }
             }
@@ -489,10 +495,14 @@ struct FilterSheet: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
+                    if #available(iOS 16.0, *) {
+                        Button("Done") {
+                            dismiss()
+                        }
+                        .fontWeight(.semibold)
+                    } else {
+                        // Fallback on earlier versions
                     }
-                    .fontWeight(.semibold)
                 }
             }
         }

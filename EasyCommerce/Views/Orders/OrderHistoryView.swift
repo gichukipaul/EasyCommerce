@@ -133,7 +133,6 @@ struct OrderCard: View {
                     Text(order.status.rawValue)
                 }
                 .font(AppTheme.Typography.caption)
-                .fontWeight(.medium)
                 .foregroundColor(order.status.color)
                 .padding(.horizontal, AppTheme.Spacing.sm)
                 .padding(.vertical, AppTheme.Spacing.xs)

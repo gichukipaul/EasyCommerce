@@ -146,7 +146,6 @@ struct WishlistItemCard: View {
                         Text("Add to Cart")
                     }
                     .font(AppTheme.Typography.caption)
-                    .fontWeight(.medium)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, AppTheme.Spacing.sm)
