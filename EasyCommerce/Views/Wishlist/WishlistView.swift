@@ -131,8 +131,7 @@ struct WishlistItemCard: View {
             // Content
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text(product.title)
-                    .font(AppTheme.Typography.caption)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.caption.weight(.medium))
                     .foregroundColor(AppTheme.Colors.text)
                     .lineLimit(2)
                     .padding(.top, AppTheme.Spacing.sm)

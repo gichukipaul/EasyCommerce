@@ -74,8 +74,7 @@ struct CategoryChip: View {
                     .font(.system(size: 14, weight: .medium))
 
                 Text(title)
-                    .font(AppTheme.Typography.subheadline)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.subheadline.weight(.medium))
             }
             .padding(.horizontal, AppTheme.Spacing.lg)
             .padding(.vertical, AppTheme.Spacing.md)
@@ -85,7 +84,11 @@ struct CategoryChip: View {
                     if isSelected {
                         AppTheme.Colors.primaryGradient
                     } else {
-                        Color(AppTheme.Colors.secondaryBackground)
+                        if #available(iOS 17.0, *) {
+                            Color(AppTheme.Colors.secondaryBackground)
+                        } else {
+                            // Fallback on earlier versions
+                        }
                     }
                 }
             )
@@ -165,8 +168,7 @@ struct CategoryGridItem: View {
 
                 // Title
                 Text(category.name.capitalized)
-                    .font(AppTheme.Typography.subheadline)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.subheadline.weight(.medium))
                     .foregroundColor(AppTheme.Colors.text)
                     .multilineTextAlignment(.center)
             }

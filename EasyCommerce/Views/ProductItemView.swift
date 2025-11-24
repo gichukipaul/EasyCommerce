@@ -27,8 +27,7 @@ struct ProductItemView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.title)
-                    .font(.headline)
-                    .fontWeight(.bold)
+                    .font(.headline.weight(.bold))
                 
                 Spacer()
                 Text("Price: $\(String(format: "%.2f", product.price))")

@@ -218,8 +218,7 @@ struct ReviewCard: View {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                     HStack {
                         Text(review.userName)
-                            .font(AppTheme.Typography.subheadline)
-                            .fontWeight(.medium)
+                            .font(AppTheme.Typography.subheadline.weight(.medium))
                             .foregroundColor(AppTheme.Colors.text)
 
                         if review.isVerifiedPurchase {
@@ -248,8 +247,7 @@ struct ReviewCard: View {
 
             // Title
             Text(review.title)
-                .font(AppTheme.Typography.subheadline)
-                .fontWeight(.semibold)
+                .font(AppTheme.Typography.subheadline.weight(.semibold))
                 .foregroundColor(AppTheme.Colors.text)
 
             // Content

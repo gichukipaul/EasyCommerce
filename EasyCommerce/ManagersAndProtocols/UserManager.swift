@@ -56,6 +56,7 @@ final class UserManager: ObservableObject {
     @Published private(set) var authState: AuthState = .unknown
     @Published private(set) var isLoading: Bool = false
     @Published var error: String?
+    @Published var hasCompletedOnboarding: Bool = false
 
     // Keys for UserDefaults
     private let userKey = "currentUser"
@@ -66,6 +67,7 @@ final class UserManager: ObservableObject {
 
     private init(authManager: AuthService = AuthManager.shared) {
         self.authManager = authManager
+        self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
         loadPersistedUser()
     }
 
@@ -77,11 +79,6 @@ final class UserManager: ObservableObject {
 
     var isAuthenticated: Bool {
         authState.isAuthenticated
-    }
-
-    var hasCompletedOnboarding: Bool {
-        get { UserDefaults.standard.bool(forKey: onboardingKey) }
-        set { UserDefaults.standard.set(newValue, forKey: onboardingKey) }
     }
 
     // MARK: - Authentication
@@ -153,6 +150,7 @@ final class UserManager: ObservableObject {
 
     func completeOnboarding() {
         hasCompletedOnboarding = true
+        UserDefaults.standard.set(true, forKey: onboardingKey)
     }
 
     // MARK: - Persistence

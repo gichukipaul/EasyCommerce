@@ -27,7 +27,7 @@ struct LoginView: View {
                     VStack(spacing: AppTheme.Spacing.md) {
                         Image(systemName: "bag.fill")
                             .font(.system(size: 60))
-                            .foregroundStyle(AppTheme.Colors.primaryGradient)
+                            .foregroundColor(AppTheme.Colors.primaryFallback)
 
                         Text("Welcome Back")
                             .font(AppTheme.Typography.title)
@@ -167,12 +167,11 @@ struct LoginView: View {
                             .font(AppTheme.Typography.subheadline)
                             .foregroundColor(AppTheme.Colors.secondaryText)
 
-                        Button("Sign Up") {
-                            showSignUp = true
-                        }
-                        .font(AppTheme.Typography.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(AppTheme.Colors.primaryFallback)
+                    Button("Sign Up") {
+                        showSignUp = true
+                    }
+                    .font(AppTheme.Typography.subheadline.weight(.semibold))
+                    .foregroundColor(AppTheme.Colors.primaryFallback)
                     }
                     .padding(.bottom, AppTheme.Spacing.xxl)
                 }
@@ -218,8 +217,7 @@ struct SocialLoginButton: View {
                 Image(systemName: provider.icon)
                     .font(.system(size: 18))
                 Text(provider.title)
-                    .font(AppTheme.Typography.subheadline)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.subheadline.weight(.medium))
             }
             .foregroundColor(AppTheme.Colors.text)
             .frame(maxWidth: .infinity)

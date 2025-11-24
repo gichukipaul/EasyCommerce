@@ -52,8 +52,7 @@ struct OrderHistoryView: View {
                     }
                 } label: {
                     Text(filter.rawValue)
-                        .font(AppTheme.Typography.subheadline)
-                        .fontWeight(selectedFilter == filter ? .semibold : .regular)
+                        .font(AppTheme.Typography.subheadline.weight(selectedFilter == filter ? .semibold : .regular))
                         .foregroundColor(selectedFilter == filter ? .white : AppTheme.Colors.text)
                         .padding(.horizontal, AppTheme.Spacing.lg)
                         .padding(.vertical, AppTheme.Spacing.sm)

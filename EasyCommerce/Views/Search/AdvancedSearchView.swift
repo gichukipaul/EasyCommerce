@@ -495,14 +495,10 @@ struct FilterSheet: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if #available(iOS 16.0, *) {
-                        Button("Done") {
-                            dismiss()
-                        }
-                        .fontWeight(.semibold)
-                    } else {
-                        // Fallback on earlier versions
+                    Button("Done") {
+                        dismiss()
                     }
+                    .font(AppTheme.Typography.subheadline.weight(.semibold))
                 }
             }
         }

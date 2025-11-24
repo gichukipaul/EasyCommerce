@@ -76,8 +76,7 @@ struct ProductCard: View {
 
                 // Title
                 Text(product.title)
-                    .font(AppTheme.Typography.subheadline)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.subheadline.weight(.medium))
                     .foregroundColor(AppTheme.Colors.text)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
@@ -164,8 +163,7 @@ struct RatingView: View {
 
             // Rating text
             Text(String(format: "%.1f", rating))
-                .font(size.font)
-                .fontWeight(.medium)
+                .font(size.font.weight(.medium))
                 .foregroundColor(AppTheme.Colors.text)
 
             // Count

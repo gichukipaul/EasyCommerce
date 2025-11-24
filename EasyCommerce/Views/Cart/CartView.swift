@@ -188,8 +188,7 @@ struct CartItemRow: View {
             // Product Info
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text(item.product.title)
-                    .font(AppTheme.Typography.subheadline)
-                    .fontWeight(.medium)
+                    .font(AppTheme.Typography.subheadline.weight(.medium))
                     .foregroundColor(AppTheme.Colors.text)
                     .lineLimit(2)
 
@@ -239,8 +238,7 @@ struct CartItemRow: View {
             }
 
             Text("\(item.quantity)")
-                .font(AppTheme.Typography.subheadline)
-                .fontWeight(.semibold)
+                .font(AppTheme.Typography.subheadline.weight(.semibold))
                 .foregroundColor(AppTheme.Colors.text)
                 .frame(width: 30)
 
