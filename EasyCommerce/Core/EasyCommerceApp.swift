@@ -39,7 +39,7 @@ struct EasyCommerceApp: App {
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance
-        UINavigationBar.appearance().tintColor = UIColor(Color(hex: "6C5CE7"))
+        UINavigationBar.appearance().tintColor = UIColor(Color("6C5CE7"))
 
         // Tab Bar Appearance
         let tabBarAppearance = UITabBarAppearance()
@@ -48,6 +48,6 @@ struct EasyCommerceApp: App {
 
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        UITabBar.appearance().tintColor = UIColor(Color(hex: "6C5CE7"))
+        UITabBar.appearance().tintColor = UIColor(Color("6C5CE7"))
     }
 }
