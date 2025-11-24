@@ -17,7 +17,7 @@ struct WishlistView: View {
     ]
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             Group {
                 if wishlistManager.isEmpty {
                     emptyView

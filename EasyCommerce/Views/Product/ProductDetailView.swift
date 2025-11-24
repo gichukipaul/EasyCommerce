@@ -420,7 +420,7 @@ struct ShareSheet: UIViewControllerRepresentable {
 
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             ProductDetailView(product: ProductListingViewModel.sampleProduct)
                 .environmentObject(CartManager.shared)
                 .environmentObject(WishlistManager.shared)

@@ -17,7 +17,7 @@ struct CategoriesView: View {
     ]
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 if viewModel.categories.isEmpty {
                     categoriesSkeleton

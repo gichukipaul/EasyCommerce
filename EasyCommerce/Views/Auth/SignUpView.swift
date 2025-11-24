@@ -38,7 +38,7 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack(spacing: AppTheme.Spacing.xl) {
                     // Header

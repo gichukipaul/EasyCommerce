@@ -323,7 +323,7 @@ struct AllReviewsView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack(spacing: AppTheme.Spacing.lg) {
                     // Rating Summary

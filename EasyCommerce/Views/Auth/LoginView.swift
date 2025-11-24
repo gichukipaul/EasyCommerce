@@ -20,7 +20,7 @@ struct LoginView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 VStack(spacing: AppTheme.Spacing.xxl) {
                     // Logo & Welcome
